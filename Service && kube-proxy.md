@@ -131,12 +131,14 @@ LB会根据和集群内每台RS的连接数统计情况，将消息调度到连�
 
 ### ipvs与iptables的性能差异
 
-随着服务的数量增长，IPTables 规则则会成倍增长，这样带来的问题是路由延迟带来的服务访问延迟，同时添加或删除一条规则也有较大延迟。不同规模下，kube-proxy添加一条规则所需时间如下所示： 
-| services | 1 | 5000 | 20000 |
-| :----: | ----: | ----:| ----: |
-| rule | 8 | 40000 | 160000 |
-| Iptables | 2ms | 11min | 5 hour |
-| IPVS | 2ms | 2ms | 2ms |
+随着服务的数量增长，IPTables 规则则会成倍增长，这样带来的问题是路由延迟带来的服务访问延迟，同时添加或删除一条规则也有较大延迟。不同规模下，kube-proxy添加一条规则所需时间如下所示
+
+<table>
+<tr><td>services</td><td>1</td><td>5000</td><td>20000</td></tr>
+<tr><td>rule</td><td>8</td><td>40000</td><td>160000</td></tr>
+<tr><td>Iptables</td><td>2ms</td><td>11min</td><td>5 hour</td></tr>
+<tr><td>IPVS</td><td>2ms</td><td>2ms</td><td>2ms</td></tr>
+</table>
 
 可以看出当集群中服务数量达到5千个时，路由延迟成倍增加。添加 IPTables 规则的延迟，有多种产生的原因，如：
 
