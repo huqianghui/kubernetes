@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: auth-service
+build:
+  artifacts:
+  - image: huqianghui/auth-service
+    jib:
+      project: com.seattle.msready:auth-service
+deploy:
+  kubectl:
+    manifests:
+    - target/classes/META-INF/dekorate/kubernetes.json
+    - target/classes/META-INF/dekorate/kubernetes.yml

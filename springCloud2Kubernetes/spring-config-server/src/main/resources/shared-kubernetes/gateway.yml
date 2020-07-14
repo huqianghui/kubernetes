@@ -1,0 +1,50 @@
+#zuul:
+#  ignoredServices: '*'
+#  host:
+#    connect-timeout-millis: 1200000
+#    socket-timeout-millis: 1200000
+#  routes:
+#    auth-service:
+#        path: /oauth/**
+#        serviceId: auth-service
+#        stripPrefix: false
+#        sensitiveHeaders:
+#    account-service:
+#        path: /accounts/**
+#        serviceId: account-service
+#        stripPrefix: false
+#        sensitiveHeaders:
+#    hello-service:
+#      path: /hellos/**
+#      serviceId: hello-service
+#      stripPrefix: true
+#      sensitiveHeaders:
+#    graphql-service:
+#      path: /graphql/**
+#      serviceId: graphql
+#      stripPrefix: true
+#      sensitiveHeaders:
+security:
+  oauth2:
+    client:
+      clientId: gateway
+      accessTokenUri: http://account-service.default.svc.cluster.local:8080/oauth/token
+      grant-type: client_credentials
+      scope: server
+    resource:
+      user-info-uri: http://localhost:5000/users/current
+
+server:
+  port: 4000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4800000
+
+ribbon:
+  ReadTimeout: 1200000
+  ConnectTimeout: 1200000

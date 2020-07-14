@@ -1,0 +1,23 @@
+logging:
+  level:
+    org.springframework.security: INFO
+
+spring:
+  cloud:
+    kubernetes:
+      enabled: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+management: #actuator
+  endpoints:
+    enable: true
+    web:
+      exposure:
+        include: "*"
+

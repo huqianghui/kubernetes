@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: spring-cloud-gateway
+build:
+  artifacts:
+  - image: huqianghui/spring-cloud-gateway
+    jib:
+      project: me.aboullaite:spring-cloud-gateway
+deploy:
+  kubectl:
+    manifests:
+    - target/classes/META-INF/dekorate/kubernetes.json
+    - target/classes/META-INF/dekorate/kubernetes.yml

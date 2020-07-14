@@ -1,0 +1,16 @@
+FROM harisekhon/ubuntu-java
+ARG SERVICE_NAME
+ARG JAR_FILE
+
+VOLUME /tmp
+
+COPY ${JAR_FILE} app.jar
+
+ENV JAVA_OPTS="-Xmx128m -Xms64m"
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+LABEL APP=${SERVICE_NAME}
+LABEL DOMAIN="springCloud2Kubernetes"
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/app.jar"]

@@ -1,0 +1,19 @@
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRoleBinding"
+metadata:
+  annotations:
+    app.dekorate.io/commit-id: "f5c5669722ffb336db56957fd3a9a7e6fbc190df"
+    app.dekorate.io/vcs-url: "https://github.com/huqianghui/kubernetes.git"
+  labels:
+    app.kubernetes.io/name: "spring-cloud-gateway"
+    app.kubernetes.io/version: "1.0.7-SNAPSHOT"
+  name: "spring-cloud-gateway:cluster-admin"
+roleRef:
+  kind: "ClusterRole"
+  apiGroup: "rbac.authorization.k8s.io"
+  name: "cluster-admin"
+subjects:
+  - kind: "ServiceAccount"
+    name: "spring-cloud-gateway"
+    namespace: "default"

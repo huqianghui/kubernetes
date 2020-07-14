@@ -1,0 +1,96 @@
+server:
+  port: 8887
+
+eureka:
+  client:
+    enabled: false
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    kubernetes:
+        enabled: true
+    gateway:
+      routes:
+      - id: account-service
+        uri: lb://account-service
+        predicates:
+        - Path=/accounts/**
+        filters:
+        - name: RequestRateLimiter
+          args:
+            key-resolver: '#{@userKeyResolver}'
+            redis-rate-limiter.replenishRate: 2
+            redis-rate-limiter.burstCapacity: 2
+        - name: Hystrix
+          args:
+            name: booksFallbackCommand
+            fallbackUri: forward:/fallback/books
+      - id: auth-service
+        uri: lb://auth-service
+        predicates:
+        - Path=/oauth/**
+        filters:
+        - name: RequestRateLimiter
+          args:
+            key-resolver: '#{@userKeyResolver}'
+            redis-rate-limiter.replenishRate: 2
+            redis-rate-limiter.burstCapacity: 2
+        - AddResponseHeader=X-Some-Header, aboullaite.me
+      - id: grahql-service-ws
+        uri: lb:ws://grahql-service
+        predicates:
+        - Path=/subscriptions
+      - id: grahql-service
+        uri: lb://grahql-service
+        predicates:
+        - Path=/graphql
+        filters:
+        - name: RequestRateLimiter
+          args:
+            key-resolver: '#{@userKeyResolver}'
+            redis-rate-limiter.replenishRate: 2
+            redis-rate-limiter.burstCapacity: 2
+        - name: Hystrix
+          args:
+            name: booksFallbackCommand
+            fallbackUri: forward:/fallback/books
+      ignoreInvalidFields: true
+      ignoreUnknownFields: true
+  security:
+    oauth2:
+      client:
+        registration:
+          gateway:
+            client-id: gateway
+            client-secret: gateway
+            authorization-grant-type: client_credentials
+            redirect-uri: http://localhost:8887/index.html
+            scope: server
+        provider:
+          gateway:
+            authorization-uri: http://auth-service:6000/oauth/authorize
+            token-uri: http://auth-service:6000/oauth/token
+            user-info-uri: http://auth-service:6000/userinfo
+            user-name-attribute: user_name
+  profiles:
+    active: default
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,mappings,hystrix.stream
+
+dekorate:
+  kubernetes:
+    serviceType: "NodePort"
+    sidecars[0]:
+      image: redis

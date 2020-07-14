@@ -1,0 +1,18 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "spring-config-server"
+spec:
+  template:
+    spec:
+      containers:
+      - env:
+        - name: "KUBERNETES_NAMESPACE"
+          value: "dev-default"
+        name: "spring-config-server"
+        ports:
+        - containerPort: 8888
+          name: "http"
+          protocol: "TCP"
+        readinessProbe:
+          initialDelaySeconds: 3000

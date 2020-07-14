@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    kubernetes:
+      enabled: true
+      reload:
+        enabled: true
+    config:
+      uri: http://spring-config-server:8888
+
+eureka:
+  client:
+    enabled: false
+
+dekorate:
+  kubernetes:
+    serviceType: "NodePort"

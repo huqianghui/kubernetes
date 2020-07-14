@@ -1,0 +1,43 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+spring:
+  application:
+    name: auth-service
+  cloud:
+    kubernetes:
+      enabled: false
+    loadbalancer:
+      ribbon:
+        enabled: false
+    config:
+      uri: http://spring-config-server:8888
+
+server:
+  port: 6000
+
+eureka:
+  client:
+    enabled: true
+
+management:
+  endpoint:
+    chaosmonkey:
+      enabled: false
+    restart:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+dekorate:
+  kubernetes:
+    serviceType: "NodePort"
+

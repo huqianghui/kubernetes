@@ -1,0 +1,4 @@
+spring:
+  cloud:
+    config:
+      uri: http://10.0.5.4:8888/

@@ -1,0 +1,33 @@
+type User{
+    username: String!
+    password: String!
+}
+
+type Vehicle {
+	id: ID!,
+	type: String,
+	modelCode: String,
+	brandName: String,
+	launchDate: String
+}
+
+type Tag {
+  id: ID!
+  name: String!
+}
+
+type Query {
+    vehicles(count: Int):[Vehicle]
+    vehicle(id: ID):Vehicle
+    getTag(id: ID): Tag
+    getUser(username: String): User
+}
+
+type Mutation {
+	createVehicle(
+	type: String!,
+	modelCode: String!,
+	brandName: String,
+	launchDate: String):Vehicle
+	newTag(name: String!): Tag!
+}

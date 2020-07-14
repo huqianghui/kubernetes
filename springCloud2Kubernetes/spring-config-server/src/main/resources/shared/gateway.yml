@@ -1,0 +1,44 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: auth-service
+        uri: lb://auth-service
+        predicates:
+        - path: /oauth/**
+      - id: account-service
+        uri: lb://account-service
+        predicates:
+        - path: /accounts/**
+security:
+  oauth2:
+    client:
+      clientId: gateway
+      accessTokenUri: http://localhost:6000/oauth/token
+      grant-type: client_credentials
+      scope: server
+    resource:
+      user-info-uri: http://localhost:5000/users/current
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000
+
+ribbon:
+  ReadTimeout: 300000
+  ConnectTimeout: 300000
+
+server:
+  port: 4000
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
+    org.springframework.cloud.gateway: TRACE

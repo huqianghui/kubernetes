@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: account-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    kubernetes:
+      enabled: false
+server:
+  port: 9003
+

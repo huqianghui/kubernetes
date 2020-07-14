@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    kubernetes:
+      enabled: true
+      reload:
+        enabled: true
+eureka:
+  client:
+    enabled: false
+
+server:
+  port: 8887
+
+dekorate:
+  kubernetes:
+    serviceType: "NodePort"
