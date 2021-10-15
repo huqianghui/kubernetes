@@ -9,7 +9,7 @@
 ![dive](./img/dive.png)
 
 1. kuberentes等manifest文件自动生成
-[dekorate](.dekorate-kubernetes-yaml-auto-creation.md)
+[dekorate](dekorate-kubernetes-yaml-auto-creation.md)
 
 3. kubernetes文件的部分替换与修改
 [kustomize](kustomize-使用模版-简化书写yaml.md)
