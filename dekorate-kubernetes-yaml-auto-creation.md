@@ -25,6 +25,8 @@
 
 7. application-kubernetes.yml
 
+
+[完整配置文档地址：config document](https://github.com/dekorateio/dekorate/blob/master/assets/config.md)
 属性配置样例：
 
 dekorate.docker.group=testme
