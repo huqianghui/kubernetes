@@ -3,7 +3,6 @@
 1. docker镜像的快速生成 [jib](./jib-docker-image-build-easy-way.md)
 
 可以看到镜像的整个文件内容，对应版本的发布等。 [dive](./dive-docker-image.md)
-![dive](./img/dive.png)
 
 1. kuberentes等manifest文件自动生成 [dekorate](dekorate-kubernetes-yaml-auto-creation.md)
 
