@@ -1,0 +1,3 @@
+{
+  "connectionString": "InstrumentationKey=d293b2e4-2a10-ce93-86a4-187b9ee90f6c;EndpointSuffix=applicationinsights.azure.cn;IngestionEndpoint=https://chinaeast2-0.in.applicationinsights.azure.cn/"
+}

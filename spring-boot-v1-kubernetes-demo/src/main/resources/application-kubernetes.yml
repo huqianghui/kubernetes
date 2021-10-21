@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    kubernetes:
+      enabled: true
+      reload:
+        enabled: false
+eureka:
+  client:
+    enabled: false
