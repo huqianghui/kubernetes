@@ -26,7 +26,9 @@ spec:
   selector:
     app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo"
     app.kubernetes.io/version: "1.0-SNAPSHOT"
-  type: "ClusterIP"
+  loadBalancerIP: 52.130.150.228
+  type: "LoadBalancer"
+
 ---
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "RoleBinding"
@@ -77,7 +79,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: "metadata.namespace"
-          image: "springcloud2k8s3acr.azurecr.cn/spring-boot-v1-kubernetes-demo:1.2.0.11-SNAPSHOT"
+          image: "springcloud2k8s3acr.azurecr.cn/spring-boot-v1-kubernetes-demo:1.2.0.12-SNAPSHOT"
           imagePullPolicy: "IfNotPresent"
           livenessProbe:
             failureThreshold: 3

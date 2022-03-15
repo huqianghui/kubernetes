@@ -1,0 +1,108 @@
+---
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  annotations:
+    app.dekorate.io/vcs-url: "https://github.com/huqianghui/dataOps.git"
+    app.dekorate.io/commit-id: "46331ca99ad074f2fd1fb9420da143e48240f05b"
+  labels:
+    app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+    app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+  name: "spring-boot-v1-kubernetes-demo2"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  annotations:
+    app.dekorate.io/commit-id: "46331ca99ad074f2fd1fb9420da143e48240f05b"
+  labels:
+    app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+    app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+  name: "spring-boot-v1-kubernetes-demo2"
+spec:
+  ports:
+  - name: "http"
+    port: 80
+    targetPort: 80
+  selector:
+    app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+    app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+  type: "LoadBalancer"
+  loadBalancerIP: 52.130.150.228
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "RoleBinding"
+metadata:
+  annotations:
+    app.dekorate.io/commit-id: "46331ca99ad074f2fd1fb9420da143e48240f05b"
+  labels:
+    app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+    app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+  name: "spring-boot-v1-kubernetes-demo2:view"
+roleRef:
+  kind: "ClusterRole"
+  apiGroup: "rbac.authorization.k8s.io"
+  name: "view"
+subjects:
+- kind: "ServiceAccount"
+  name: "spring-boot-v1-kubernetes-demo2"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  annotations:
+    app.dekorate.io/vcs-url: "https://github.com/huqianghui/dataOps.git"
+    app.dekorate.io/commit-id: "46331ca99ad074f2fd1fb9420da143e48240f05b"
+  labels:
+    app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+    app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+  name: "spring-boot-v1-kubernetes-demo2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+      app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+  template:
+    metadata:
+      annotations:
+        app.dekorate.io/vcs-url: "https://github.com/huqianghui/dataOps.git"
+        app.dekorate.io/commit-id: "46331ca99ad074f2fd1fb9420da143e48240f05b"
+      labels:
+        app.kubernetes.io/name: "spring-boot-v1-kubernetes-demo2"
+        app.kubernetes.io/version: "1.2.0.13-SNAPSHOT"
+    spec:
+      containers:
+      - env:
+        - name: "KUBERNETES_NAMESPACE"
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.namespace"
+        image: "springcloud2k8s3acr.azurecr.cn/spring-boot-v1-kubernetes-demo:1.2.0.13-SNAPSHOT"
+        imagePullPolicy: "IfNotPresent"
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: "/health"
+            port: 80
+            scheme: "HTTP"
+          initialDelaySeconds: 0
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: "spring-boot-v1-kubernetes-demo2"
+        ports:
+        - containerPort: 80
+          name: "http"
+          protocol: "TCP"
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: "/info"
+            port: 80
+            scheme: "HTTP"
+          initialDelaySeconds: 0
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+      serviceAccount: "spring-boot-v1-kubernetes-demo2"

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.example</groupId>
     <artifactId>spring-boot-v1-kubernetes-demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2.0.14-SNAPSHOT</version>
 
     <properties>
        <maven.compiler.source>1.8</maven.compiler.source>
@@ -18,13 +18,39 @@
         <spring.cloud.version>Edgware.SR4</spring.cloud.version>
         <spring-cloud-feign.version>1.4.3.RELEASE</spring-cloud-feign.version>
         <spring-boot-dependencies.version>1.5.13.RELEASE</spring-boot-dependencies.version>
-        <tag.version>1.2.0.11-SNAPSHOT</tag.version>
+        <tag.version>1.2.0.14-SNAPSHOT</tag.version>
         <docker.image.prefix>springcloud2k8s3acr.azurecr.cn</docker.image.prefix>
         <java.version>1.8</java.version>
         <jib-maven-plugin.version>2.6.0</jib-maven-plugin.version>
         <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
         <version.maven.springboot-plugin>2.3.6.RELEASE</version.maven.springboot-plugin>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>local-db</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                    <version>2.5</version>
+                </dependency>
+                <dependency>
+                    <groupId>de.flapdoodle.embed</groupId>
+                    <artifactId>de.flapdoodle.embed.mongo</artifactId>
+                    <version>2.2.0</version>
+                </dependency>
+                <dependency>
+                    <groupId>de.flapdoodle.embed</groupId>
+                    <artifactId>de.flapdoodle.embed.process</artifactId>
+                    <version>2.1.2</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -48,6 +74,13 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>1.5.22.RELEASE</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
@@ -117,7 +150,7 @@
                 <version>${jib-maven-plugin.version}</version>
                 <configuration>
                     <from>
-                        <image>mcr.microsoft.com/java/jdk:8-zulu-alpine</image>
+                        <image>springcloud2k8s3acr.azurecr.cn/ubuntu-openjdk-8-jdk:latest</image>
                     </from>
                     <to>
                         <image>${docker.image.prefix}/${project.artifactId}</image>
