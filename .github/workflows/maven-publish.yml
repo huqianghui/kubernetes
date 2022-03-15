@@ -30,7 +30,7 @@ jobs:
       run: pwd
       
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: cd ./spring-boot-v1-kubernetes-demo && mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
