@@ -25,6 +25,9 @@ jobs:
 
     - name: Change work directory
       run: cd ./spring-boot-v1-kubernetes-demo
+    
+    - name: echo current work directory
+      run: pwd
       
     - name: Build with Maven
       run: mvn -B package --file pom.xml
