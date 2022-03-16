@@ -25,9 +25,9 @@ jobs:
 
     - uses: azure/docker-login@v1
       with:
-        login-server: 'springcloud2k8s3acr.azurecr.cn' # default: index.docker.io
-        username: 'springcloud2k8s3acr'
-        password: 'staO73IxnRoY1/1Y0ZnmLJ8PweV7gLLA'
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }} # default: index.docker.io
+        username: ${{ secrets.ACR_USER }}
+        password: ${{ secrets.ACR_PASS1 }}
       
     - name: Build with Maven
       run: cd ./spring-boot-v1-kubernetes-demo && mvn clean install -Dmaven.test.skip=true --file ./pom.xml
