@@ -18,8 +18,8 @@ jobs:
       with:
         login-server: ${{ secrets.ACR_LOGIN_SERVER }} # default: index.docker.io
         username: ${{ secrets.ACR_USER }}
-        password: ${{ secrets.ACR_PASS1 }}
-        
+        password: ${{ secrets.ACR_PASS1 }} 
+    - run: echo "🎉 Login into azure container registry..." 
     - uses: actions/checkout@v2
     - name: Set up JDK 8
       uses: actions/setup-java@v2
