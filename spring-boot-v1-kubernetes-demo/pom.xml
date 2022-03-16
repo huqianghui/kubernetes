@@ -76,8 +76,8 @@
    <distributionManagement>
     <repository>
       <id>github</id>
-      <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/octocat/hello-world</url>
+      <name>GitHub actions-packages-examples Apache Maven Packages</name>
+      <url>https://token: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@maven.pkg.github.com/actions-packages-examples/maven-example</url>
     </repository>
   </distributionManagement>
 
