@@ -8,7 +8,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       contents: read
       packages: write
@@ -30,9 +30,4 @@ jobs:
       run: pwd
       
     - name: Build with Maven
-      run: cd ./spring-boot-v1-kubernetes-demo && mvn -B package --file ./pom.xml
-
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+      run: cd ./spring-boot-v1-kubernetes-demo && mvn clean install -Dmaven.test.skip=true --file ./pom.xml
