@@ -34,4 +34,4 @@ jobs:
     - name: Publish package
       run: cd ./spring-boot-v1-kubernetes-demo && mvn clean source:jar deploy -DuniqueVersion=false -Dmaven.source.useDefaultManifestFile=true -DdeplyAtEnd=true -Dmaven.source.includePom=true -Dmaven.install.skip=true --file ./pom.xml
       env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
