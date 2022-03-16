@@ -8,7 +8,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -23,11 +23,11 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Change work directory
-      run: cd ./spring-boot-v1-kubernetes-demo
-    
-    - name: echo current work directory
-      run: pwd
+    - uses: azure/docker-login@v1
+      with:
+        login-server: 'springcloud2k8s3acr.azurecr.cn' # default: index.docker.io
+        username: 'springcloud2k8s3acr'
+        password: 'staO73IxnRoY1/1Y0ZnmLJ8PweV7gLLA'
       
     - name: Build with Maven
       run: cd ./spring-boot-v1-kubernetes-demo && mvn clean install -Dmaven.test.skip=true --file ./pom.xml
